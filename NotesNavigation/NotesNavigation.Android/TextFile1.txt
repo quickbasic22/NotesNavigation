@@ -1,0 +1,3 @@
+﻿Hello World
+
+this text is in Android project.

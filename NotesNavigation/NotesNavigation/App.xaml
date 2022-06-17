@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NotesNavigation.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <LinearGradientBrush x:Key="rainbow">
+                <GradientStop Color="Red" Offset="0" />
+                <GradientStop Color="Orange" Offset="0.1" />
+                <GradientStop Color="Yellow" Offset="0.3" />
+                <GradientStop Color="Green" Offset="0.5" />
+                <GradientStop Color="Blue" Offset="0.7" />
+                <GradientStop Color="Indigo" Offset="0.9" />
+                <GradientStop Color="Violet" Offset="1" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
