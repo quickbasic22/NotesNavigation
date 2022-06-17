@@ -27,7 +27,6 @@ namespace NotesNavigation
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = null;
             notes = new List<Note>();
             var files = Directory.EnumerateFiles(App.FolderPath, "*.notes.txt");
             try
@@ -48,15 +47,18 @@ namespace NotesNavigation
                 Console.WriteLine(ex.ToString());
             }
 
-            try
-            {
-                collectionView.BindingContext = notes.OrderByDescending(d => d.Date.Year).ToList<Note>();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.ToString());
-                Console.WriteLine(ex.ToString());
-            }
+            //try
+            //{
+            //    collectionView.BindingContext = Notes.OrderByDescending(d => d.Date.Year).ToList<Note>();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine(ex.ToString());
+            //    Console.WriteLine(ex.ToString());
+            //}
+            collectionView.ItemsSource = Notes.OrderByDescending(d => d.Date.Year).ToList();
+            BindingContext = this;
+
             //collectionView.HorizontalOptions = LayoutOptions.Start;
             //collectionView.VerticalOptions = LayoutOptions.StartAndExpand;
             //DisplayAlert(collectionView.BindingContext.ToString(), collectionView.BindingContext.ToString(), "Ok");

@@ -1,36 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:model="clr-namespace:NotesNavigation.Model"
              x:Class="NotesNavigation.MainPage"
              BackgroundColor="Orange"
-             IsBusy="False"
+             x:Name="page"
              Title="Reading Note Files">
+    <ContentPage.Content>
 
-    <!-- Display notes in a list -->
-    <CollectionView x:Name="collectionView"
+        <!-- Display notes in a list -->
+        <CollectionView x:Name="collectionView"
                     Margin="20"
+                    ItemSizingStrategy="MeasureFirstItem"
                     SelectionMode="Single">
 
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical"
-                               ItemSpacing="10" />
-        </CollectionView.ItemsLayout>
+            <!--<CollectionView.ItemsSource>
+                <x:Array Type="{x:Type model:Note}">
+                    <model:Note Text="Hello world" Date="3/03/21" Filename="c:\myfile.txt" />
+                    <model:Note Text="Hello world" Date="3/03/21" Filename="c:\myfile.txt" />
+                    <model:Note Text="Hello world" Date="3/03/21" Filename="c:\myfile.txt" />
+                    <model:Note Text="Hello world" Date="3/03/21" Filename="c:\myfile.txt" />
+                    <model:Note Text="Hello world" Date="3/03/21" Filename="c:\myfile.txt" />
+                </x:Array>
+            </CollectionView.ItemsSource>-->
 
-        <!-- Define the appearance of each item in the list -->
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
+            <CollectionView.EmptyView>
                 <StackLayout>
-                    <Label Text="{Binding Text}"
-                           FontSize="Large"/>
-                    <Label Text="{Binding Date}"
-                           TextColor="Silver"
-                           FontSize="Large" />
-                    <Label Text="{Binding Filename}"
-                           TextColor="Silver"
-                           FontSize="Large" />
+                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding Bounds}" />
+                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding BindingContext}" />
+                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding class}" />
+                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding ClassId}" />
+                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding Dispatcher}" />
+                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding FlowDirection}" />
                 </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
-    
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"    
+                           ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+
+            <!-- Define the appearance of each item in the list -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type model:Note}">
+                    <StackLayout>
+                        <Label Text="{Binding  Text}"
+                           FontSize="Large"/>
+                        <Label Text="{Binding Date}"
+                           TextColor="Silver"
+                           FontSize="Large" />
+                        <Label Text="{Binding Filename}"
+                           TextColor="Silver"
+                           FontSize="Large" />
+                        <BoxView BackgroundColor="Red" HeightRequest="10" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
 </ContentPage>
