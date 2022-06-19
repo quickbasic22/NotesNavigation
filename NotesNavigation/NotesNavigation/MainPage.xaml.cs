@@ -1,4 +1,5 @@
 ﻿using NotesNavigation.Model;
+using NotesNavigation.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,40 +14,13 @@ namespace NotesNavigation
 {
     public partial class MainPage : ContentPage
     {
-        private List<Note> notes;
-        public List<Note> Notes
-        {
-            get => notes;
-            set
-            {
-                notes = value;
-                OnPropertyChanged();
-            }
-        }
+        private MainPageViewModel _viewModel;
+        
         //public static string FolderPath { get; private set; }
         public MainPage()
         {
             InitializeComponent();
-            notes = new List<Note>();
-            var files = Directory.EnumerateFiles(App.FolderPath, "*.notes.txt");
-            try
-            {
-                foreach (var filename in files)
-                {
-
-                    notes.Add(new Note
-                    {
-                        Filename = filename,
-                        Text = File.ReadAllText(filename),
-                        Date = File.GetCreationTime(filename)
-                    });
-                };
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
+           
             //try
             //{
             //    collectionView.BindingContext = Notes.OrderByDescending(d => d.Date.Year).ToList<Note>();
@@ -56,8 +30,8 @@ namespace NotesNavigation
             //    Debug.WriteLine(ex.ToString());
             //    Console.WriteLine(ex.ToString());
             //}
-            collectionView.ItemsSource = Notes.OrderByDescending(d => d.Date.Year).ToList();
-            BindingContext = this;
+           
+            BindingContext = _viewModel = new ViewModels.MainPageViewModel();
 
             //collectionView.HorizontalOptions = LayoutOptions.Start;
             //collectionView.VerticalOptions = LayoutOptions.StartAndExpand;
@@ -66,6 +40,13 @@ namespace NotesNavigation
             //DisplayAlert(collectionView.VerticalOptions.ToString(), collectionView.Bounds.ToString(), "Ok");
             //DisplayAlert(collectionView.Visual.ToString(), collectionView.Bounds.ToString(), "Ok");
 
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
+            
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:rating="clr-namespace:RatingBarControl;assembly=RatingBarControl"
+             xmlns:viewmodel="clr-namespace:NotesNavigation.ViewModels"
+             x:DataType="viewmodel:MainPageViewModel"
              xmlns:model="clr-namespace:NotesNavigation.Model"
              x:Class="NotesNavigation.MainPage"
              BackgroundColor="Orange"
@@ -11,6 +14,7 @@
         <!-- Display notes in a list -->
         <CollectionView x:Name="collectionView"
                     Margin="20"
+                       BindingContext="{Binding LoadDataCommand}"
                     ItemSizingStrategy="MeasureFirstItem"
                     SelectionMode="Single">
 
@@ -26,12 +30,7 @@
 
             <CollectionView.EmptyView>
                 <StackLayout>
-                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding Bounds}" />
-                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding BindingContext}" />
-                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding class}" />
-                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding ClassId}" />
-                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding Dispatcher}" />
-                    <Label BindingContext="{x:Reference collectionView}" Text="{Binding FlowDirection}" />
+                    <Label Text="Empty Data" FontSize="Title" TextColor="Black" />
                 </StackLayout>
             </CollectionView.EmptyView>
 
@@ -52,6 +51,12 @@
                         <Label Text="{Binding Filename}"
                            TextColor="Silver"
                            FontSize="Large" />
+                        <Label Text="{Binding Source={x:Reference rtControl},Path=SelectedStarValue,StringFormat='Seleced Star: {0}'}" />
+                        <rating:RatingBar StarHeightRequest="35" 
+                                    StarWidthRequest="35"  
+                                    EmptyStarImage="emptystar" 
+                                    FillStarImage="fillstar" 
+                                    x:Name="rtControl"/>
                         <BoxView BackgroundColor="Red" HeightRequest="10" />
                     </StackLayout>
                 </DataTemplate>
